@@ -1,2 +1,2 @@
 # lightspeed
-Light Speed Virtual Machine(LSVM) for Kagati language
+An IR system. I am competing with LLVM.

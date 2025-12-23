@@ -1,9 +1,9 @@
-package org.kagati.ls.js;
+package org.kagati.ls.javascript;
 
-import org.kagati.ls.node.Assign;
-import org.kagati.ls.node.Block;
-import org.kagati.ls.node.Const;
-import org.kagati.ls.node.IRNode;
+import org.kagati.ls.hir.node.Assign;
+import org.kagati.ls.hir.node.Block;
+import org.kagati.ls.hir.node.Const;
+import org.kagati.ls.hir.node.IRNode;
 
 public class JSCodeGenerator {
     public String generate(Block block) {

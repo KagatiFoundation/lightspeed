@@ -2,10 +2,10 @@ package org.kagati.ls;
 
 import java.util.List;
 
-import org.kagati.ls.js.JSCodeGenerator;
-import org.kagati.ls.node.Assign;
-import org.kagati.ls.node.Block;
-import org.kagati.ls.node.Const;
+import org.kagati.ls.hir.node.Assign;
+import org.kagati.ls.hir.node.Block;
+import org.kagati.ls.hir.node.Const;
+import org.kagati.ls.javascript.JSCodeGenerator;
 
 public class Main {
     public static void main(String[] args) {

@@ -1,4 +1,4 @@
-package org.kagati.ls.node;
+package org.kagati.ls.hir.node;
 
 import java.util.List;
 
