@@ -1,11 +1,11 @@
 package org.kagati.ls.mir.node;
 
-public record MirConst(String target, MirConstValue value) implements MirInstruction {
+public record MirConst(Temp target, MirConstValue value) implements MirExpr, MirInstruction {
     @Override
-    public void dump() {
-        switch (value) {
-            case MirInteger i -> System.out.printf("%s = %d\n", target, i.value());
-            case MirString s -> System.out.printf("%s = %s\n", target, s.value());
-        }
+    public String toString() {
+        return switch (value) {
+            case MirInteger i -> String.format("%s = const %d\n", target.toString(), i.value());
+            case MirString s -> String.format("%s = const \"%s\"\n", target.toString(), s.value());
+        };
     }    
 }

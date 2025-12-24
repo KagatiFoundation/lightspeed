@@ -1,5 +1,3 @@
 package org.kagati.ls.mir.node;
 
-public record MirInteger(int value) implements MirConstValue {
-    
-}
+public record MirInteger(int value) implements MirConstValue { }

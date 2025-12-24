@@ -7,5 +7,4 @@ public sealed interface HirExpr extends HirNode
         HirConst, 
         HirCompare,
         HirAdd {
-    
 }
