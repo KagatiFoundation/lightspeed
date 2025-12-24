@@ -2,6 +2,7 @@ package org.kagati.ls;
 
 import java.util.List;
 
+import org.kagati.ls.hir.node.HirAdd;
 import org.kagati.ls.hir.node.HirAssign;
 import org.kagati.ls.hir.node.HirBlock;
 import org.kagati.ls.hir.node.HirCompare;
@@ -27,7 +28,12 @@ public class Main {
             new HirIf(
                 new HirCompare(
                     new HirVar("x"),
-                    new HirVar("y"),
+                    new HirAdd(
+                        new HirConst(
+                            new HirInteger(450)
+                        ), 
+                        new HirVar("y")
+                    ),
                     HirCompareType.EqEq
                 ), 
                 new HirBlock(List.of(

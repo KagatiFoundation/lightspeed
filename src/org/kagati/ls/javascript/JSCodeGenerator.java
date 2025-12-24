@@ -1,5 +1,6 @@
 package org.kagati.ls.javascript;
 
+import org.kagati.ls.hir.node.HirAdd;
 import org.kagati.ls.hir.node.HirAssign;
 import org.kagati.ls.hir.node.HirBlock;
 import org.kagati.ls.hir.node.HirCompare;
@@ -23,14 +24,18 @@ public class JSCodeGenerator {
     
     private String generateNode(HirNode node) {
         return switch (node) {
+            // Expressions
             case HirConst c -> generateExpression(c);
+            case HirCompare c -> generateExpression(c);
+            case HirAdd a -> generateExpression(a);
+            case HirVar v -> generateExpression(v);
+            // Expressions end
+
+            case HirBlock b -> generate(b);
             case HirAssign a -> {
                 String value = generateNode(a.expr());
                 yield String.format("let %s = %s;\n", a.name(), value);
             }
-            case HirCompare c -> generateExpression(c);
-            case HirVar v -> v.name();
-            case HirBlock b -> generate(b);
             case HirIf branch -> generateIfNode(branch);
             default -> throw new IllegalStateException("Unknown node: " + node);
         };
@@ -42,7 +47,7 @@ public class JSCodeGenerator {
                 String lhs = generateNode(c.lhs);
                 String rhs = generateNode(c.rhs);
                 yield switch (c.type) {
-                    case HirCompareType.EqEq: yield String.format("%s === %s", lhs, rhs);
+                    case HirCompareType.EqEq: yield String.format("(%s === %s)", lhs, rhs);
                 };
             }
             case HirConst c -> {
@@ -52,6 +57,12 @@ public class JSCodeGenerator {
                     default -> throw new IllegalStateException("Unknown value: " + c.value());
                 };
             }
+            case HirAdd a -> {
+                String lhs = generateExpression(a.lhs());
+                String rhs = generateExpression(a.rhs());
+                yield String.format("(%s + %s)", lhs, rhs);
+            }
+            case HirVar v -> v.name();
             default -> throw new IllegalStateException("Unknown node: " + expr);
         };
     }
