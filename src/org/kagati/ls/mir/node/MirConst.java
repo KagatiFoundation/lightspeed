@@ -1,5 +1,7 @@
 package org.kagati.ls.mir.node;
 
+import org.kagati.ls.mir.Temp;
+
 public record MirConst(Temp target, MirConstValue value) implements MirExpr, MirInstruction {
     @Override
     public String toString() {

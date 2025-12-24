@@ -1,4 +1,4 @@
-package org.kagati.ls.mir.node;
+package org.kagati.ls.mir;
 
 public record Temp(int value) {
     @Override

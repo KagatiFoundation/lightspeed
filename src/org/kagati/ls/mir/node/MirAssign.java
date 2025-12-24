@@ -1,8 +1,10 @@
 package org.kagati.ls.mir.node;
 
-public record MirAssign(String target, String source) implements MirInstruction {
+import org.kagati.ls.mir.Temp;
+
+public record MirAssign(String target, Temp value) implements MirInstruction {
     @Override
     public String toString() {
-        return String.format("%s = %s\n", target, source);
+        return String.format("%s = %s\n", target, value.toString());
     }
 }

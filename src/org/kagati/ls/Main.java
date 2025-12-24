@@ -11,14 +11,17 @@ import org.kagati.ls.mir.node.MirFunction;
 public class Main {
     public static void main(String[] args) {
         HirBlock block = new HirBlock(List.of(
-            new HirCompare(
-                new HirConst(
-                    new HirInteger(12)
-                ),
-                new HirConst(
-                    new HirString("ramesh")
-                ),
-                HirCompareType.EqEq
+            new HirAssign(
+                "x", 
+                new HirCompare(
+                    new HirConst(
+                        new HirInteger(12)
+                    ),
+                    new HirConst(
+                        new HirString("ramesh")
+                    ),
+                    HirCompareType.EqEq
+                )
             )
         ));
         HirFunction function = new HirFunction("add", List.of(), block);
