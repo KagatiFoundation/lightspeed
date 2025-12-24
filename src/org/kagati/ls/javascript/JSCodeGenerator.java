@@ -9,7 +9,6 @@ import org.kagati.ls.hir.node.HirExpr;
 import org.kagati.ls.hir.node.HirIf;
 import org.kagati.ls.hir.node.HirInteger;
 import org.kagati.ls.hir.node.HirString;
-import org.kagati.ls.hir.node.HirVar;
 import org.kagati.ls.hir.node.HirCompare.HirCompareType;
 import org.kagati.ls.hir.node.HirNode;
 
@@ -28,7 +27,6 @@ public class JSCodeGenerator {
             case HirConst c -> generateExpression(c);
             case HirCompare c -> generateExpression(c);
             case HirAdd a -> generateExpression(a);
-            case HirVar v -> generateExpression(v);
             // Expressions end
 
             case HirBlock b -> generate(b);
@@ -62,7 +60,6 @@ public class JSCodeGenerator {
                 String rhs = generateExpression(a.rhs());
                 yield String.format("(%s + %s)", lhs, rhs);
             }
-            case HirVar v -> v.name();
             default -> throw new IllegalStateException("Unknown node: " + expr);
         };
     }

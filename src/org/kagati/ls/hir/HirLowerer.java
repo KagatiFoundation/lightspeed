@@ -1,19 +1,8 @@
 package org.kagati.ls.hir;
 
-import org.kagati.ls.hir.node.HirAdd;
-import org.kagati.ls.hir.node.HirConst;
-import org.kagati.ls.hir.node.HirExpr;
-import org.kagati.ls.hir.node.HirFunction;
-import org.kagati.ls.hir.node.HirInteger;
-import org.kagati.ls.hir.node.HirNode;
-import org.kagati.ls.hir.node.HirString;
-import org.kagati.ls.mir.node.MirAdd;
-import org.kagati.ls.mir.node.MirBuilder;
-import org.kagati.ls.mir.node.MirConst;
-import org.kagati.ls.mir.node.MirFunction;
-import org.kagati.ls.mir.node.MirInteger;
-import org.kagati.ls.mir.node.MirString;
-import org.kagati.ls.mir.node.Temp;
+import org.kagati.ls.hir.node.*;
+import org.kagati.ls.mir.node.*;
+import org.kagati.ls.hir.node.HirCompare.HirCompareType;
 
 public final class HirLowerer {
     public MirFunction lower(HirFunction function, MirBuilder b) {
@@ -31,6 +20,9 @@ public final class HirLowerer {
         }
         if (expr instanceof HirConst c) {
             return lowerConstant(c, b);
+        }
+        if (expr instanceof HirCompare c) {
+            return lowerCompare(c, b);
         }
         throw new IllegalStateException("Unhandled HIR expr: " + expr);
     }
@@ -50,5 +42,19 @@ public final class HirLowerer {
         Temp target = b.freshTemp();
         b.emit(new MirAdd(target, lhsTemp, rhsTemp));
         return target;
+    }
+
+    private Temp lowerCompare(HirCompare compare, MirBuilder b) {
+        Temp lhsTemp = lowerExpression(compare.lhs, b);
+        Temp rhsTemp = lowerExpression(compare.rhs, b);
+        Temp target = b.freshTemp();
+        b.emit(new MirCompare(target, lhsTemp, rhsTemp, lowerCompareType(compare.type)));
+        return target;
+    }
+
+    private MirCompareType lowerCompareType(HirCompareType type) {
+        return switch (type) {
+            case HirCompareType.EqEq -> MirCompareType.Equal;
+        };
     }
 }
