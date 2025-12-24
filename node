@@ -1,0 +1,8 @@
+let x = 12;
+let y = "Ramesh Poudel";
+if (x === y) {
+let a = 1;
+}
+else {
+}
+
