@@ -26,6 +26,28 @@ public final class MirBuilder {
         currentBlock.add(i);
     }
 
+    public Temp createConst(MirConstValue value) {
+        final Temp target = nextTemp();
+        currentBlock.add(new MirConst(target, value));
+        return target;
+    }
+
+    public Temp createAdd(Temp lhs, Temp rhs) {
+        final Temp target = nextTemp();
+        currentBlock.add(new MirAdd(target, lhs, rhs));
+        return target;
+    }
+
+    public Temp createCompare(Temp lhs, Temp rhs, MirCompareType type) {
+        final Temp target = nextTemp();
+        currentBlock.add(new MirCompare(target, lhs, rhs, type));
+        return target;
+    }
+
+    public MirBlock createBlock() {
+        return new MirBlock(nextBlock());
+    }
+
     public void startBlock(MirBlock block) {
         currentBlock = block;
         blocks.add(block);

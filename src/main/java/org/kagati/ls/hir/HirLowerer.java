@@ -53,27 +53,23 @@ public final class HirLowerer {
     }
 
     private Temp lowerConstant(HirConst c, MirBuilder b) {
-        Temp temp = b.nextTemp();
-        switch (c.value()) {
-            case HirInteger i -> b.emit(new MirConst(temp, new MirInteger(i.value())));
-            case HirString s -> b.emit(new MirConst(temp, new MirString(s.value())));
+        return switch (c.value()) {
+            case HirInteger i -> b.createConst(new MirInteger(i.value()));
+            case HirString s -> b.createConst(new MirString(s.value()));
         };
-        return temp;
     }
 
     private Temp lowerAdd(HirAdd add, MirBuilder b) {
         Temp lhsTemp = lowerExpression(add.lhs(), b);
         Temp rhsTemp = lowerExpression(add.rhs(), b);
-        Temp target = b.nextTemp();
-        b.emit(new MirAdd(target, lhsTemp, rhsTemp));
+        Temp target = b.createAdd(lhsTemp, rhsTemp);
         return target;
     }
 
     private Temp lowerCompare(HirCompare compare, MirBuilder b) {
         Temp lhsTemp = lowerExpression(compare.lhs, b);
         Temp rhsTemp = lowerExpression(compare.rhs, b);
-        Temp target = b.nextTemp();
-        b.emit(new MirCompare(target, lhsTemp, rhsTemp, lowerCompareType(compare.type)));
+        Temp target = b.createCompare(lhsTemp, rhsTemp, lowerCompareType(compare.type));
         return target;
     }
 

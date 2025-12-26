@@ -13,14 +13,13 @@ public class Main {
         HirBlock block = new HirBlock(List.of(
             new HirAssign(
                 "x", 
-                new HirCompare(
+                new HirAdd(
                     new HirConst(
                         new HirInteger(12)
                     ),
                     new HirConst(
                         new HirString("ramesh")
-                    ),
-                    HirCompareType.EqEq
+                    )
                 )
             )
         ));

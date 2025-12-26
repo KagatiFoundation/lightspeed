@@ -1,3 +1,10 @@
 #/bin/sh
 
+if [[ $1 = "fresh" ]]; then
+    mvn clean package
+else
+    mvn package
+fi
+
+echo "===== OUTPUT ====="
 java --enable-preview -cp target/lightspeed-1.0-SNAPSHOT.jar org.kagati.ls.Main
