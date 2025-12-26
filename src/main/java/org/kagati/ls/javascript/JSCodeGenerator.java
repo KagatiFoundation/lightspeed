@@ -8,9 +8,8 @@ import org.kagati.ls.hir.node.HirConst;
 import org.kagati.ls.hir.node.HirExpr;
 import org.kagati.ls.hir.node.HirIf;
 import org.kagati.ls.hir.node.HirInteger;
-import org.kagati.ls.hir.node.HirString;
-import org.kagati.ls.hir.node.HirCompare.HirCompareType;
 import org.kagati.ls.hir.node.HirNode;
+import org.kagati.ls.hir.node.HirString;
 
 public class JSCodeGenerator {
     public String generate(HirBlock block) {
@@ -44,9 +43,7 @@ public class JSCodeGenerator {
             case HirCompare c -> {
                 String lhs = generateNode(c.lhs);
                 String rhs = generateNode(c.rhs);
-                yield switch (c.type) {
-                    case HirCompareType.EqEq: yield String.format("(%s === %s)", lhs, rhs);
-                };
+                yield String.format("(%s === %s)", lhs, rhs);
             }
             case HirConst c -> {
                 yield switch (c.value()) {

@@ -4,9 +4,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.kagati.ls.hir.node.*;
+import org.kagati.ls.hir.node.HirCompare.HirCompareType;
 import org.kagati.ls.mir.Temp;
 import org.kagati.ls.mir.node.*;
-import org.kagati.ls.hir.node.HirCompare.HirCompareType;
+
+import org.kagati.ls.hir.node.HirAdd;
 
 public final class HirLowerer {
     private final Map<String, Temp> env = new HashMap<>();
@@ -77,7 +79,7 @@ public final class HirLowerer {
 
     private MirCompareType lowerCompareType(HirCompareType type) {
         return switch (type) {
-            case HirCompareType.EqEq -> MirCompareType.Equal;
+            case EqEq -> MirCompareType.Equal;
         };
     }
 }
