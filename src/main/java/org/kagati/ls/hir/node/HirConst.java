@@ -1,3 +1,13 @@
 package org.kagati.ls.hir.node;
 
-public record HirConst(HirConstValue value) implements HirExpr { }
+public final class HirConst extends HirExpr {
+    private HirConstValue value;
+
+    public HirConst(HirConstValue value) {
+        this.value = value;
+    }
+
+    public HirConstValue value() {
+        return value;
+    }
+}

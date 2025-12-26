@@ -1,6 +1,6 @@
 package org.kagati.ls.hir.node;
 
-public final class HirCompare implements HirExpr {
+public final class HirCompare extends HirExpr {
     public enum HirCompareType {
         EqEq
     }
@@ -13,5 +13,17 @@ public final class HirCompare implements HirExpr {
         this.type = type;
         this.lhs = lhs;
         this.rhs = rhs;
+    }
+
+    public HirCompareType compareType() {
+        return type;
+    }
+
+    public HirExpr lhs() {
+        return lhs;
+    }
+
+    public HirExpr rhs() {
+        return rhs;
     }
 }
